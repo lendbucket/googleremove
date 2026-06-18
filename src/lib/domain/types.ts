@@ -11,6 +11,21 @@ export interface Review {
   claimedVisitAt: string | null;
 }
 
+export interface BusinessProfile {
+  name: string;
+  rating: number;
+  totalReviews: number;
+  placeId?: string;
+  locationLabel?: string;
+}
+
+export type RemovalProbabilityBand =
+  | "very_high"
+  | "high"
+  | "moderate"
+  | "low"
+  | "very_low";
+
 export interface AuditResult {
   reviewId: string;
   qualifies: boolean;
@@ -19,6 +34,11 @@ export interface AuditResult {
   confidence: number;
   rationale: string;
   evidenceToGather: string[];
+  removalProbabilityBand: RemovalProbabilityBand;
+  removalProbabilityRange: string;
+  strategySummary: string;
+  steps: string[];
+  topEvidenceToRaiseOdds: string;
 }
 
 export interface EvidenceItem {
@@ -60,3 +80,24 @@ export type PolicyCategoryId =
   | "personal_information"
   | "harassment"
   | "profanity";
+
+export interface ReviewImpact {
+  reviewId: string;
+  star: number;
+  deltaIfRemoved: number;
+  projectedRatingIfRemoved: number;
+}
+
+export interface AnalyticsSummary {
+  currentRating: number;
+  totalReviews: number;
+  flaggedCount: number;
+  projectedRatingAllFlaggedRemoved: number;
+  netDelta: number;
+  fiveStarsNeededFor45: number;
+  fiveStarsNeededFor45AfterRemovals: number;
+  fiveStarsNeededFor47: number;
+  trustBand: string;
+  distanceToNextBand: number;
+  leverageOrder: string[];
+}
